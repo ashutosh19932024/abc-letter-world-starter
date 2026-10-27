@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+:root{font-family:Nunito,'Trebuchet MS',sans-serif;color:#183e33;background:#f8f8ee}*{box-sizing:border-box}body{margin:0}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #e3a800;outline-offset:3px}.site{min-height:100vh}.top{height:80px;background:#fff;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 max(5vw,20px);border-bottom:1px solid #e4eadb}.logo{display:flex;align-items:center;gap:10px;border:0;background:none;text-align:left;color:#226149;font-size:23px;font-weight:900;line-height:1}.logo>span:first-child{font-size:35px}.logo b{color:#f4a900}.logo small{display:block;font-size:10px;letter-spacing:2px;margin-top:8px;color:#709080}.top nav{display:flex;gap:10px}.top nav button{border:0;background:none;color:#30594b;font-weight:900;padding:10px}.safe{font-size:12px;color:#547867;font-weight:800}.hero{margin:24px auto 0;max-width:1260px;min-height:395px;background:linear-gradient(125deg,#d8f5ce,#ecf9b4);border-radius:28px;display:grid;grid-template-columns:1.08fr 1fr;overflow:hidden;padding:50px 5%;align-items:center;gap:20px}.eyebrow{font-size:13px;color:#32825c;font-weight:900;text-transform:uppercase;letter-spacing:1.5px}h1{font-size:clamp(38px,4.5vw,65px);line-height:1.08;letter-spacing:-2px;margin:16px 0}h1 em{font-style:normal;color:#e78b11}.hero p{max-width:460px;line-height:1.65;color:#54705e;font-weight:700}.primary,.playbutton{background:#ffb629;border:0;border-bottom:5px solid #d68c0c;border-radius:15px;color:#483307;font-weight:900;padding:14px 25px;font-size:17px}.primary:hover,.playbutton:hover:not(:disabled){transform:translateY(-2px)}.hero .note{font-size:12px;color:#658775;margin-top:14px}.heroart{height:310px;position:relative;border-radius:40px;background:linear-gradient(#8bdaed 0 55%,#83c969 55%);overflow:hidden;border:7px solid #fff8;box-shadow:0 20px 40px #398f6d30}.sun{position:absolute;right:30px;top:20px;font-size:55px}.cloud{position:absolute;left:35px;top:15px;font-size:64px}.hill{position:absolute;width:125%;height:130px;border-radius:50%;background:#42a567;bottom:-52px;left:-15%}.heroanimals{position:absolute;bottom:75px;width:100%;text-align:center;font-size:clamp(55px,7vw,94px);white-space:nowrap;filter:drop-shadow(0 9px 3px #206d4850)}.herograss{position:absolute;bottom:4px;width:100%;text-align:center;font-size:36px;white-space:nowrap}.star{position:absolute;font-size:30px}.one{top:65px;left:24%}.two{top:105px;right:17%}.library{max-width:1260px;margin:45px auto;padding:0 18px}.sectionheading{display:flex;justify-content:space-between;align-items:end;gap:15px;flex-wrap:wrap;margin-bottom:22px}h2{font-size:30px;margin:7px 0}.filters{display:flex;gap:8px}.filters button{border:1px solid #d8e5d7;background:#fff;padding:9px 16px;border-radius:30px;font-weight:900;color:#426955}.filters .selected{background:#256b4c;color:white}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.gamecard{border-radius:23px;overflow:hidden;background:white;border:1px solid #e9eadf;box-shadow:0 8px 23px #284f3410}.art{height:195px;display:flex;justify-content:center;align-items:center;position:relative}.art span{font-size:104px;filter:drop-shadow(0 12px 2px #245a4c28)}.art i{position:absolute;right:13px;top:12px;background:#fff;padding:5px 10px;border-radius:20px;font-size:10px;font-style:normal;font-weight:900}.jungle{background:linear-gradient(140deg,#8bdca1,#34a96f)}.alphabet{background:linear-gradient(140deg,#d5b9ff,#9c81e9)}.numbers{background:linear-gradient(140deg,#ffe5a3,#ffb56b)}.cardbody{padding:21px}.meta{font-size:12px;color:#4e9a72;font-weight:900}.cardbody h3{font-size:21px;margin:7px 0}.cardbody p{font-size:14px;color:#6d7f74;line-height:1.5;min-height:44px}.playbutton{width:100%;font-size:15px;margin-top:10px}.playbutton:disabled{background:#e7e9e2;border-color:#cfd4cc;color:#88918a;cursor:not-allowed}.parents{max-width:1260px;margin:30px auto 60px;padding:23px 30px;display:flex;gap:25px;align-items:center;background:#e6f4e9;border-radius:20px}.parents>span{font-size:44px}.parents h2{font-size:20px}.parents p{color:#527460;line-height:1.5;margin:0}footer{text-align:center;background:#1b5b44;color:#cde8d8;padding:22px;font-size:13px}.play{max-width:1220px;margin:20px auto;padding:0 15px}.playhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;font-weight:900}.back{border:0;background:#e1efdd;border-radius:12px;padding:10px 13px;color:#1b6145;font-weight:900}iframe{display:block;width:100%;height:min(760px,calc(100dvh - 155px));min-height:530px;border:0;border-radius:18px;background:#092b29}@media(max-width:800px){.top{height:auto;padding:13px 16px;flex-wrap:wrap}.safe{display:none}.hero{margin:12px;grid-template-columns:1fr;padding:28px 22px}.heroart{height:240px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.library{margin-top:30px}.playhead span{font-size:12px}}@media(max-width:560px){.logo{font-size:17px}.logo>span:first-child{font-size:28px}.top nav button{font-size:13px}.hero{padding:24px 18px}.heroart{height:205px}.heroanimals{font-size:64px;bottom:56px}.herograss{font-size:25px}.cards{grid-template-columns:1fr}.art{height:170px}.parents{margin:20px 12px 40px;padding:18px}.parents>span{font-size:28px}.playhead{flex-wrap:wrap}iframe{min-height:530px;height:72dvh}}
+
+/* Age collections: colorful square cards, with space for future groups. */
+.age-library{margin-top:52px;scroll-margin-top:24px}
+.age-intro{color:#637866;font-weight:700;margin:0 0 5px}
+.age-groups{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;padding:8px;overflow-x:auto}.age-tile .tile-label{font-size:clamp(20px,2vw,28px);white-space:nowrap}
+.age-tile,.toddler-tile{position:relative;overflow:hidden;border:0;border-radius:30px;background:var(--tile-bg);color:var(--tile-ink);text-align:left;isolation:isolate;transition:transform .18s,box-shadow .18s}
+.age-tile{min-width:0;min-height:210px;padding:20px;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:8px}
+.age-tile::before,.toddler-tile::before{content:'';position:absolute;z-index:-1;width:180px;height:180px;border-radius:50%;right:-60px;top:-60px;background:#ffffff14}
+.age-doodle{font-size:75px;display:block;align-self:flex-end;line-height:1.2;transform:rotate(10deg);margin-bottom:12px;filter:drop-shadow(0 7px 0 #00000012)}
+.tile-label{display:block;font-size:clamp(24px,2.5vw,33px);font-weight:900;line-height:1.1;letter-spacing:-.6px}
+.age-status{font-size:13px;font-weight:900;background:#ffffff26;border-radius:30px;padding:7px 12px}
+.age-tile:disabled{cursor:default;opacity:1}
+.age-tile.is-selected{outline:3px solid #7445b6;outline-offset:5px}
+.age-tile:not(:disabled):hover,.toddler-tile:hover{transform:translateY(-4px);box-shadow:0 12px 24px #284f341a}
+.age-game-list{margin-top:38px}
+.toddler-heading{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:22px}
+.toddler-heading h3{font-size:28px;margin:5px 0 0}
+.toddler-heading p{max-width:390px;color:#637866;line-height:1.6;font-weight:700;margin:0}
+.toddler-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.toddler-tile{aspect-ratio:1;min-height:270px;padding:26px;display:flex;flex-direction:column;justify-content:space-between;align-items:stretch}
+.toddler-illustration{display:block;align-self:center;font-size:clamp(80px,9vw,125px);line-height:1.25;transform:rotate(-10deg);filter:drop-shadow(0 10px 0 #00000010);margin:12px 0 20px}
+.tile-spark{position:absolute;top:26px;left:27px;font-size:30px;opacity:.35}
+.tile-description{display:block;font-size:14px;font-weight:700;line-height:1.45;margin-top:9px;max-width:85%}
+.tile-play{position:absolute;bottom:25px;right:24px;font-size:25px;font-weight:900}
+.toddler-note{color:#637866;font-size:13px;line-height:1.7;margin:22px 0 0;max-width:760px}
+@media(max-width:950px){.age-groups{grid-template-columns:repeat(5,minmax(160px,1fr))}.age-tile{min-height:210px}.toddler-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.toddler-illustration{font-size:100px}}
+@media(max-width:560px){.age-groups{gap:14px}.age-tile{border-radius:24px;padding:18px;min-height:200px}.age-doodle{font-size:58px}.age-status{font-size:11px;padding:6px 8px}.tile-label{font-size:25px}.toddler-heading{display:block}.toddler-heading p{margin-top:12px;font-size:14px}.toddler-grid{gap:14px}.toddler-tile{border-radius:24px;min-height:230px;padding:18px;aspect-ratio:auto}.toddler-illustration{font-size:72px;margin:12px 0 20px}.tile-description{font-size:12px;max-width:100%;padding-right:10px}.tile-play{bottom:12px;right:12px;font-size:20px}.tile-spark{left:16px;top:15px;font-size:22px}}
+@media(max-width:360px){.toddler-grid{grid-template-columns:1fr}.toddler-tile{aspect-ratio:1}.age-status{font-size:10px}.age-tile{padding:14px}.tile-label{font-size:22px}}
+@media(prefers-reduced-motion:reduce){.age-tile,.toddler-tile{transition:none}.age-tile:not(:disabled):hover,.toddler-tile:hover{transform:none}}
+
+/* A welcoming cover for each collection, revealed only after choosing an age. */
+.collection-banner{display:flex;align-items:center;gap:25px;position:relative;overflow:hidden;padding:30px 34px;margin-bottom:24px;border-radius:28px;background:var(--collection-bg);color:var(--collection-ink)}
+.collection-banner::after{content:'';position:absolute;width:240px;height:240px;right:-40px;top:-110px;border:30px solid #ffffff18;border-radius:50%;pointer-events:none}
+.collection-mascot{font-size:78px;line-height:1.2;transform:rotate(-9deg);filter:drop-shadow(0 7px 0 #0000000d)}
+.collection-copy{flex:1;position:relative;z-index:1}
+.collection-kicker{font-size:12px;text-transform:uppercase;letter-spacing:1.5px;font-weight:900}
+.collection-copy h3{font-size:clamp(30px,4vw,44px);letter-spacing:-1px;line-height:1.1;margin:9px 0}
+.collection-copy p{font-size:15px;font-weight:700;line-height:1.6;max-width:550px;margin:0}
+.collection-sticker{border:2px dashed currentColor;border-radius:50%;padding:23px 17px;font-size:15px;font-weight:900;text-align:center;line-height:1.3;transform:rotate(12deg);margin:0 10px;opacity:.8}
+.game-skill{position:absolute;top:19px;right:19px;padding:6px 11px;background:#ffffff80;border-radius:20px;font-size:11px;font-weight:900;letter-spacing:.4px}
+.age-game-list .tile-play{width:36px;height:36px;border-radius:50%;background:#ffffff65;display:grid;place-items:center;font-size:13px;bottom:22px;right:20px;padding-left:2px}
+.age-game-list .toddler-tile:focus-visible{outline:3px solid #256b4c;outline-offset:5px}
+.age-game-list .toddler-tile:hover .tile-play{background:#ffffffbb}
+@media(max-width:560px){.collection-banner{padding:24px 19px;gap:14px;border-radius:24px;align-items:flex-start}.collection-mascot{font-size:48px;margin-top:20px}.collection-sticker{display:none}.collection-kicker{font-size:10px;letter-spacing:.6px}.collection-copy p{font-size:13px}.game-skill{top:13px;right:12px;font-size:9px;padding:5px 8px}.age-game-list .tile-play{width:27px;height:27px;right:12px;bottom:12px;font-size:10px}.age-game-list .tile-description{padding-right:15px}}
+
+/* Brain Explorers gets a night-sky cover and warm, tactile challenge cards. */
+.explorer-collection .collection-banner{background:radial-gradient(circle at 8% 15%,#ffffff20 0 2px,transparent 3px),radial-gradient(circle at 85% 75%,#ffffff30 0 3px,transparent 4px),linear-gradient(125deg,#253352,#404770);color:#fff5d8;min-height:240px}
+.explorer-collection .collection-banner::after{width:320px;height:320px;right:-120px;top:-90px;border:38px solid #ffffff0b}
+.explorer-collection .collection-mascot{font-size:100px;transform:rotate(-18deg)}
+.explorer-collection .collection-kicker{color:#ffda85}
+.explorer-collection .collection-copy p{color:#e0e7fa}
+.explorer-collection .collection-sticker{color:#ffe08a}
+.collection-features{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:18px 0 0}
+.collection-features li{font-size:11px;font-weight:800;letter-spacing:.2px;background:#ffffff13;border:1px solid #ffffff26;border-radius:20px;padding:6px 11px}
+.explorer-collection .toddler-tile{border:1px solid #00000006;box-shadow:0 5px 0 #2334540b}
+.explorer-collection .toddler-tile::before{width:230px;height:230px;right:-45px;top:-70px;background:repeating-linear-gradient(45deg,#ffffff18 0 14px,transparent 14px 30px);transform:rotate(-12deg)}
+.explorer-collection .game-skill{background:#ffffffa0;color:#263650}
+.explorer-collection .toddler-illustration{transition:transform .2s}
+.explorer-collection .toddler-tile:hover .toddler-illustration{transform:rotate(0deg) translateY(-3px)}
+.explorer-collection .tile-play{background:#263650;color:#fff}
+.explorer-collection .toddler-tile:hover .tile-play{background:#414e73}
+@media(max-width:560px){.explorer-collection .collection-mascot{font-size:52px}.explorer-collection .collection-banner{min-height:0}.collection-features{gap:6px;margin-top:14px}.collection-features li{font-size:9px;padding:5px 8px}.explorer-collection .tile-label{font-size:23px}}
+@media(prefers-reduced-motion:reduce){.explorer-collection .toddler-illustration{transition:none}.explorer-collection .toddler-tile:hover .toddler-illustration{transform:rotate(-10deg)}}
+
+.kite{background:linear-gradient(140deg,#bfe9ff,#ffe5a3)}
+
+.rocket{background:linear-gradient(140deg,#393463,#8673ce)}
+.chef{background:linear-gradient(140deg,#e5edcc,#f7d4b7)}

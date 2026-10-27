@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ABC Alphabet Game</title>
+<style>
+:root{--bg:#fff8e7;--card:#fff;--ink:#2b2b3a;--slot:#e9eefc;--slotb:#9fb2ee;--tile:#ffb703;--tileink:#3a2a00;--ok:#2fbf71;--bad:#ef476f;--acc:#5b6cff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#181a2b;--card:#23263d;--ink:#f1f1f8;--slot:#2d3254;--slotb:#566099;--tile:#ffb703;--tileink:#2a1d00}}
+:root[data-theme="dark"]{--bg:#181a2b;--card:#23263d;--ink:#f1f1f8;--slot:#2d3254;--slotb:#566099;--tile:#ffb703;--tileink:#2a1d00}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Trebuchet MS","Comic Sans MS",system-ui,sans-serif;touch-action:manipulation}
+main{max-width:640px;margin:0 auto;padding:14px}
+h1{margin:4px 0;text-align:center;font-size:1.6rem}
+.bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0}
+button{font:inherit;border:0;border-radius:12px;padding:8px 14px;background:var(--acc);color:#fff;cursor:pointer;font-weight:700}
+button.off{background:var(--slot);color:var(--ink)}
+button.big{font-size:1.2rem;padding:12px 24px}
+p.msg{text-align:center;margin:6px 0;min-height:1.4em;font-weight:700}
+.box{background:var(--card);border-radius:16px;padding:10px;margin:8px 0;box-shadow:0 2px 8px #0002}
+.lbl{font-size:.85rem;opacity:.75;margin:0 0 6px 4px}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.slot,.tile{aspect-ratio:1;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:clamp(1.2rem,6vw,2rem);font-weight:800;user-select:none}
+.slot{background:color-mix(in srgb,var(--c) 25%,var(--card));border:3px dashed var(--c);position:relative}
+.slot small{position:absolute;top:2px;left:5px;font-size:.5rem;opacity:.5;font-weight:400}
+.slot.fixed{border-style:solid;background:var(--c);color:#fff;text-shadow:0 2px 0 #0004}
+.slot.done{border:3px solid var(--c);background:var(--c);color:#fff;text-shadow:0 2px 0 #0004;animation:pop .3s}
+.slot.shake{animation:shake .3s}
+.slot.hint,.tile.hint{outline:4px solid var(--acc)}
+.tile{background:var(--c);color:#fff;text-shadow:0 2px 0 #0004;cursor:grab;touch-action:none;box-shadow:0 4px 0 #0004}
+.tile.drag{opacity:.25}
+.ghost{position:fixed;z-index:99;pointer-events:none;transform:translate(-50%,-50%) scale(1.15);box-shadow:0 8px 18px #0005}
+.ghost.back{transition:all .25s}
+.tile.gone{visibility:hidden}
+.over{text-align:center}
+.stars{font-size:2.4rem}
+@keyframes pop{50%{transform:scale(1.2)}}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+</style>
+</head>
+<body>
+<main>
+<h1>🔤 ABC Alphabet Game</h1>
+<div class="bar" id="lv"></div>
+<p class="msg" id="msg"></p>
+<div class="box"><p class="lbl">Put the letters here ⬆</p><div class="grid" id="top"></div></div>
+<div class="box"><p class="lbl">Drag letters from here ⬇</p><div class="grid" id="bot"></div></div>
+<div class="bar"><button id="hint">💡 Hint</button><button id="again" class="off">↻ Restart</button><button id="snd" class="off">🔊 Sound on</button></div>
+<div class="box over" id="end" hidden><div class="stars" id="stars"></div><p id="endmsg"></p><button class="big" id="next">Next level ➜</button></div>
+</main>
+<script>
+const L="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+const $=id=>document.getElementById(id);
+const col=i=>"hsl("+Math.round(i*360/26)+" 90% 52%)";
+let level=1,mistakes=0,left=0,sound=true;
+const info={1:"Level 1: Copy the alphabet in order",2:"Level 2: Fill the empty boxes",3:"Level 3: Build the whole alphabet!"};
+function say(t){if(!sound||!window.speechSynthesis)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.rate=.8;u.pitch=1.2;speechSynthesis.speak(u)}catch(e){}}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function start(n){
+  level=n;mistakes=0;$("end").hidden=true;
+  [...$("lv").children].forEach((b,i)=>b.className=(i+1===n)?"":"off");
+  $("msg").textContent=info[n];
+  const top=$("top"),bot=$("bot");top.innerHTML="";bot.innerHTML="";
+  let missing=L.slice();
+  if(n===2){missing=shuffle(L).slice(0,11).sort()}
+  left=missing.length;
+  L.forEach((c,i)=>{
+    const s=document.createElement("div");s.className="slot";s.style.setProperty("--c",col(i));s.dataset.l=c;s.innerHTML="<small>"+(i+1)+"</small>";
+    if(!missing.includes(c)){s.classList.add("fixed");s.append(c);s.dataset.f="1"}
+    top.append(s);
+  });
+  const order=n===1?missing:shuffle(missing);
+  order.forEach(c=>{
+    const t=document.createElement("div");t.className="tile";t.style.setProperty("--c",col(L.indexOf(c)));t.textContent=c;t.dataset.l=c;
+    t.addEventListener("pointerdown",e=>drag(e,t));bot.append(t);
+  });
+  $("hint").style.display=n===3?"":"none";
+}
+function drag(e,t){
+  e.preventDefault();say(t.dataset.l);
+  const g=t.cloneNode(true);g.className="tile ghost";g.style.width=t.offsetWidth+"px";g.style.height=t.offsetHeight+"px";
+  document.body.append(g);t.classList.add("drag");
+  const mv=(x,y)=>{g.style.left=x+"px";g.style.top=y+"px"};mv(e.clientX,e.clientY);
+  const move=ev=>mv(ev.clientX,ev.clientY);
+  const up=ev=>{
+    removeEventListener("pointermove",move);removeEventListener("pointerup",up);removeEventListener("pointercancel",up);
+    g.style.display="none";const el=document.elementFromPoint(ev.clientX,ev.clientY);g.style.display="";
+    const s=el&&el.closest&&el.closest(".slot");
+    if(s&&!s.dataset.f&&!s.classList.contains("done")){
+      if(s.dataset.l===t.dataset.l){place(s,t);g.remove();return}
+      mistakes++;s.classList.add("shake");setTimeout(()=>s.classList.remove("shake"),300);
+      $("msg").textContent="Oops, try again! 🙂";
+    }
+    const r=t.getBoundingClientRect();g.classList.add("back");mv(r.left+r.width/2,r.top+r.height/2);
+    setTimeout(()=>{g.remove();t.classList.remove("drag")},260);
+  };
+  addEventListener("pointermove",move);addEventListener("pointerup",up);addEventListener("pointercancel",up);
+}
+function place(s,t){
+  s.textContent=t.dataset.l;s.classList.add("done");s.classList.remove("hint");
+  t.classList.remove("drag","hint");t.classList.add("gone");
+  $("msg").textContent=["Great! ⭐","Well done! 🎉","Super! 🌟","Yes! 👏"][Math.floor(Math.random()*4)];
+  left--;if(left===0)finish();
+}
+function finish(){
+  const n=mistakes<=2?3:mistakes<=6?2:1;
+  $("stars").textContent="⭐".repeat(n)+"☆".repeat(3-n);
+  $("endmsg").textContent=level<3?"Level "+level+" complete!":"You finished the whole game! 🏆";
+  $("next").style.display=level<3?"":"none";
+  $("end").hidden=false;$("end").scrollIntoView({behavior:"smooth",block:"center"});
+  say("Well done!");
+}
+$("hint").onclick=()=>{
+  document.querySelectorAll(".hint").forEach(x=>x.classList.remove("hint"));
+  const s=[...document.querySelectorAll(".slot")].find(x=>!x.dataset.f&&!x.classList.contains("done"));
+  if(!s)return;s.classList.add("hint");
+  const t=[...document.querySelectorAll(".tile")].find(x=>x.dataset.l===s.dataset.l&&!x.classList.contains("gone"));
+  if(t)t.classList.add("hint");say(s.dataset.l);
+};
+$("again").onclick=()=>start(level);
+$("next").onclick=()=>start(level+1);
+$("snd").onclick=e=>{sound=!sound;e.target.textContent=sound?"🔊 Sound on":"🔇 Sound off"};
+[1,2,3].forEach(n=>{const b=document.createElement("button");b.textContent="Level "+n;b.onclick=()=>start(n);$("lv").append(b)});
+start(1);
+</script>
+</body>
+</html>

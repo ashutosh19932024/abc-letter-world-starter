@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f8f4e9">
+  <title>Little Chef Academy</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main>
+    <header class="topbar">
+      <div class="brand"><span aria-hidden="true">👩‍🍳</span><div>Little Chef <strong>Academy</strong><small>A LITTLE PLAY. A LITTLE EVERYDAY MAGIC.</small></div></div>
+      <div class="controls"><button id="sound" class="small-button" aria-pressed="false">🔇 Sound off</button><button id="home" class="small-button" hidden>← Kitchen menu</button></div>
+    </header>
+    <section id="menu-view" aria-labelledby="menu-heading">
+      <div class="welcome">
+        <div class="welcome-copy"><p class="eyebrow">AGES 3–8 · MATCHING + LIFE SKILLS</p><h1 id="menu-heading">Big little chefs.<br><em>Wonderful little meals.</em></h1><p>A pinch of curiosity, a bowl of color, and a kitchen full of things to discover.</p><span class="welcome-note">✨ No timer. Just happy little discoveries.</span></div>
+        <div class="cafe" aria-hidden="true"><div class="awning"></div><span class="cafe-sign">THE LITTLE CHEF CAFÉ</span><span class="chef">👩‍🍳</span><div class="counter">🥕 🥗 🍓</div><span class="cafe-star">✦</span></div>
+      </div>
+      <div class="menu-title"><div><p class="eyebrow">WHAT SHALL WE MAKE TODAY?</p><h2>Your kitchen adventures</h2></div><span id="badge-count" class="badge-count">0 / 4 chef stickers</span></div>
+      <div id="activity-menu" class="activity-menu"></div>
+      <p class="grownup-note">💛 A pretend kitchen for practicing real habits. In a real kitchen, cook with a grown-up.</p>
+    </section>
+    <section id="play-view" hidden aria-labelledby="activity-title">
+      <div class="play-heading"><div><p id="activity-kicker" class="eyebrow"></p><h1 id="activity-title" tabindex="-1"></h1></div><button id="restart" class="small-button">↻ Start again</button></div>
+      <div class="progress-row"><span id="progress-text"></span><progress id="progress" max="8" value="0" aria-label="Activity progress"></progress></div>
+      <div id="workspace" class="workspace"></div>
+      <div class="feedback-row"><p id="feedback" role="status" aria-live="polite"></p><button id="listen" class="small-button" aria-label="Hear the instructions">🔊 Hear hint</button></div>
+      <div id="celebration" class="celebration" hidden tabindex="-1"><span class="celebration-icon" aria-hidden="true">🏅</span><div><p class="eyebrow">A LITTLE CHEF MOMENT</p><h2 id="celebration-title">Wonderful work, chef!</h2><p id="celebration-copy"></p></div><div class="celebration-actions"><button id="again" class="primary">Play again ↻</button><button id="next" class="small-button">Next adventure →</button></div></div>
+    </section>
+    <footer>Made for small hands and big imaginations. <span>Tap to choose, then tap a home. You can also drag.</span></footer>
+  </main>
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>

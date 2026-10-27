@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KITE FLY</title>
+<style>
+:root{--bg:#fff6e5;--ink:#2b2118;--mute:#7b6a58;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1a1511;--ink:#f6ece0;--mute:#b3a291;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1a1511;--ink:#f6ece0;--mute:#b3a291;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*{box-sizing:border-box}
+body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;overflow:hidden;-webkit-user-select:none;user-select:none}
+h1{margin:0;font-size:22px}
+p{margin:0;color:var(--mute);font-size:13px}
+canvas{height:min(calc(100dvh - 100px),640px);aspect-ratio:9/16;max-width:100%;border-radius:14px;touch-action:none;display:block;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+</style>
+</head>
+<body>
+<h1>🪁 KITE FLY</h1>
+<canvas id="c" width="360" height="640" aria-label="KITE FLY गेम"></canvas>
+<p>टैप करो, स्पेस दबाओ या क्लिक करो, पतंग ऊपर जाएगी</p>
+<script>
+(function(){
+var cv=document.getElementById('c'),x=cv.getContext('2d'),W=360,H=640,GY=H-60,KX=95;
+var st='ready',k,obs,score,speed,spawn,t=0,best=0,last=0,overAt=0,actx=null;
+try{best=+localStorage.getItem('patangBest')||0}catch(e){}
+var clouds=[{x:40,y:90,s:1},{x:220,y:160,s:.8},{x:330,y:60,s:1.2},{x:150,y:260,s:.7}];
+
+function reset(){k={y:300,vy:0,a:0};obs=[];score=0;speed=2.3;spawn=0}
+reset();
+
+function beep(f,d){try{actx=actx||new(window.AudioContext||window.webkitAudioContext)();var o=actx.createOscillator(),g=actx.createGain();o.frequency.value=f;o.type='triangle';g.gain.value=.08;o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+d)}catch(e){}}
+
+function tap(e){
+  if(e&&e.preventDefault)e.preventDefault();
+  if(st==='ready'){st='play';k.vy=-6;beep(520,.08)}
+  else if(st==='play'){k.vy=-6;beep(520,.06)}
+  else if(st==='over'&&performance.now()-overAt>500){reset();st='play';k.vy=-6}
+}
+cv.addEventListener('pointerdown',tap);
+window.addEventListener('keydown',function(e){if(e.code==='Space'||e.code==='ArrowUp'){tap(e)}});
+
+function addObs(){
+  var gap=Math.max(150,205-score*2),gy=130+Math.random()*(GY-260),b=[];
+  for(var y=-10;y<gy-gap/2;y+=44)b.push(y);
+  for(var y2=gy+gap/2+22;y2<GY-10;y2+=44)b.push(y2);
+  obs.push({x:W+30,b:b,passed:false});
+}
+
+function end(){st='over';overAt=performance.now();beep(160,.35);
+  if(score>best){best=score;try{localStorage.setItem('patangBest',best)}catch(e){}}}
+
+function update(dt){
+  t+=dt;
+  clouds.forEach(function(c){c.x-=.25*dt*c.s;if(c.x<-80)c.x=W+80});
+  if(st!=='play'){if(st==='ready')k.y=300+Math.sin(t*.06)*10;return}
+  k.vy+=.32*dt;k.y+=k.vy*dt;
+  k.a=Math.max(-.5,Math.min(.6,k.vy*.06));
+  if(k.y<20){k.y=20;k.vy=0}
+  if(k.y>GY-20){end();return}
+  speed=2.3+Math.min(2.2,score*.06);
+  spawn-=speed*dt;if(spawn<=0){addObs();spawn=215}
+  for(var i=obs.length-1;i>=0;i--){
+    var o=obs[i];o.x-=speed*dt;
+    if(!o.passed&&o.x<KX-20){o.passed=true;score++;beep(760,.07)}
+    if(o.x<-40){obs.splice(i,1);continue}
+    for(var j=0;j<o.b.length;j++){
+      var dx=o.x-KX,dy=o.b[j]-k.y;
+      if(Math.sqrt(dx*dx+dy*dy)<35){end();return}
+    }
+  }
+}
+
+function cloud(c){x.fillStyle='rgba(255,255,255,.9)';var r=18*c.s;
+  x.beginPath();x.arc(c.x,c.y,r,0,7);x.arc(c.x+r,c.y+4,r*.8,0,7);x.arc(c.x-r,c.y+5,r*.7,0,7);x.fill()}
+
+function bird(bx,by,i){
+  var w=Math.sin(t*.35+i)*10;
+  x.fillStyle='#fb8500';x.beginPath();x.ellipse(bx+4,by+2,12,7+w*.4,.3,0,7);x.fill();
+  x.fillStyle='#ffb703';x.beginPath();x.arc(bx,by,18,0,7);x.fill();
+  x.fillStyle='#e63946';x.beginPath();x.moveTo(bx-16,by-2);x.lineTo(bx-28,by+3);x.lineTo(bx-16,by+7);x.fill();
+  x.fillStyle='#fff';x.beginPath();x.arc(bx-6,by-5,5,0,7);x.fill();
+  x.fillStyle='#222';x.beginPath();x.arc(bx-7,by-5,2.4,0,7);x.fill();
+}
+
+function kite(){
+  x.save();x.translate(KX,k.y);x.rotate(k.a);
+  x.strokeStyle='rgba(60,40,20,.6)';x.lineWidth=1.5;x.beginPath();x.moveTo(0,26);x.quadraticCurveTo(-20,60,-45,H-k.y);x.stroke();
+  var cs=['#e63946','#4361ee','#2a9d8f','#ffd60a','#f72585'];
+  for(var i=1;i<=5;i++){var tx=-Math.sin(t*.2+i)*7-i*2,ty=26+i*12;
+    x.fillStyle=cs[i-1];x.beginPath();x.moveTo(tx,ty);x.lineTo(tx-7,ty+4);x.lineTo(tx-7,ty-4);x.closePath();x.fill();
+    x.beginPath();x.moveTo(tx,ty);x.lineTo(tx+7,ty+4);x.lineTo(tx+7,ty-4);x.closePath();x.fill()}
+  x.fillStyle='#e63946';x.beginPath();x.moveTo(0,-28);x.lineTo(-20,0);x.lineTo(0,26);x.closePath();x.fill();
+  x.fillStyle='#ffd60a';x.beginPath();x.moveTo(0,-28);x.lineTo(20,0);x.lineTo(0,26);x.closePath();x.fill();
+  x.strokeStyle='rgba(0,0,0,.35)';x.lineWidth=1.5;x.beginPath();x.moveTo(0,-28);x.lineTo(0,26);x.moveTo(-20,0);x.lineTo(20,0);x.stroke();
+  x.restore();
+}
+
+function txt(s,y,size,col){x.font='700 '+size+'px system-ui,"Noto Sans Devanagari",sans-serif';x.textAlign='center';x.fillStyle=col||'#fff';x.strokeStyle='rgba(0,0,0,.45)';x.lineWidth=4;x.strokeText(s,W/2,y);x.fillText(s,W/2,y)}
+
+function draw(){
+  var g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#5bc0ff');g.addColorStop(1,'#ffe8b0');x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.fillStyle='#ffd23f';x.beginPath();x.arc(300,70,34,0,7);x.fill();
+  clouds.forEach(cloud);
+  x.fillStyle='#7bc96f';x.beginPath();x.moveTo(0,GY);x.quadraticCurveTo(90,GY-50,180,GY-10);x.quadraticCurveTo(270,GY-60,W,GY-5);x.lineTo(W,H);x.lineTo(0,H);x.fill();
+  x.fillStyle='#4f9d4a';x.fillRect(0,GY+8,W,H-GY);
+  obs.forEach(function(o){o.b.forEach(function(by,i){bird(o.x,by,i)})});
+  kite();
+  if(st!=='ready')txt(String(score),70,48);
+  if(st==='ready'){txt('KITE FLY!',230,36,'#fff7b0');txt('टैप करो और पक्षियों से बचो',275,18)}
+  if(st==='over'){x.fillStyle='rgba(0,0,0,.35)';x.fillRect(0,0,W,H);
+    txt('गेम ओवर',250,38,'#ffd6d6');txt('स्कोर: '+score,305,26);txt('बेस्ट: '+best,345,20);txt('फिर से खेलने के लिए टैप करो',400,16)}
+}
+
+function loop(n){var dt=Math.min(2.5,(n-last)/16.67||1);last=n;update(dt);draw();requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

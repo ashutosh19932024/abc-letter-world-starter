@@ -1,0 +1,13 @@
+﻿/* Collection menu only: canvas activities retain the supplied game UI. */
+#menu{padding:clamp(22px,5vw,60px);background:radial-gradient(ellipse at top right,#d4dafa80,transparent 60%),var(--bg)}
+#menu h1{font-size:clamp(30px,5vw,46px);letter-spacing:-1px;max-width:1000px;margin:0 auto 12px}
+#menu .sub{font-size:15px;line-height:1.7;max-width:1000px;margin:0 auto 28px}
+#grid{max-width:1000px;margin:0 auto;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px}
+#grid button{position:relative;min-height:200px;gap:12px;justify-content:center;border-radius:28px;border:2px solid #ffffff90;box-shadow:0 5px 0 #26365015;transition:transform .15s}
+#grid button:hover{transform:translateY(-3px)}
+#grid button:focus-visible{outline:3px solid #e0a126;outline-offset:4px}
+#grid b{font-size:70px;filter:drop-shadow(0 5px 0 #2636500c)}
+#grid span{font-size:20px}
+#grid small{background:#ffffff90;border-radius:20px;padding:5px 12px;font-weight:700;opacity:1}
+@media(max-width:500px){#grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}#grid button{min-height:175px;padding:18px 8px}#grid span{font-size:16px}#grid b{font-size:56px}#menu .sub{font-size:13px}}
+@media(prefers-reduced-motion:reduce){#grid button{transition:none}#grid button:hover{transform:none}}
